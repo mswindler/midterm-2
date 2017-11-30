@@ -27,7 +27,7 @@
 
   <div class="cans" ng-repeat="item in items | orderBy: '-name'">
     <span ng-click="deleteItem(item)"><strong><i class="glyphicon glyphicon-remove"></i></strong></span>
-     {{item.name}} - Price: ${{item.price}} - Ordered {{item.numberOrdered}}
+     {{item.name}} - Price: ${{item.price}} - Ordered {{item.numberOrdered}} <img src="{{item.imageUrl}}">
   </div>
 </body>
 </html>
