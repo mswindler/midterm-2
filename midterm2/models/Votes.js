@@ -1,13 +1,17 @@
+
 var mongoose = require('mongoose');
-var VoteSchema = new mongoose.Schema({
-  name: String,
-  votes: {type: Number, default: 0},
-  price: Number,
+
+var ItemSchema = new mongoose.Schema({
+    name: String,
+    price: Number,
+    imageUrl: String,
+    quantity: Number
 });
 
-VoteSchema.methods.upvote = function(cb) {
- this.votes += 1;
- this.save(cb);
+ItemSchema.methods.incrementNumberOrdered = function (cb) {
+    this.quantity += 1;
+    this.save(cb);
 };
 
-mongoose.model('Vote', VoteSchema);
+
+mongoose.model('Item', ItemSchema);
