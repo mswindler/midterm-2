@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-
-var Vote = mongoose.model('Vote');
+var Vote = mongoose.model('Item');
 
 
 router.get('/', function(req, res, next) {
