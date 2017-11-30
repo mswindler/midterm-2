@@ -9,7 +9,7 @@ var ItemSchema = new mongoose.Schema({
 });
 
 ItemSchema.methods.incrementNumberOrdered = function (cb) {
-    this.numberOrdered++;
+    this.numberOrdered += 1;
     this.save(cb);
 };
 
