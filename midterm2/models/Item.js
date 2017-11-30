@@ -5,7 +5,7 @@ var ItemSchema = new mongoose.Schema({
     name: String,
     price: Number,
     imageUrl: String,
-    quantity: Number
+    numberOrdered: Number
 });
 
 ItemSchema.methods.incrementNumberOrdered = function (cb) {
