@@ -29,7 +29,7 @@ angular.module('shop', []).controller('MainCtrl', [
 
         $scope.deleteItem = function(item) {
             console.log('Deleting Name ' + item.name + ' ID ' + item._id);
-            $http.delete(`/item/${item._id}`).success(data => {
+            $http.delete('/item/${item._id}').success(data => {
                 console.log('deleted ', item);
                 $scope.getItems();
             });
@@ -50,7 +50,7 @@ angular.module('shop', []).controller('MainCtrl', [
 
         $scope.submitPurchase = function() {
             $scope.selectedItems.forEach(item => {
-                return $http.put(`/item/${item._id}/order`).success(data => {
+                return $http.put('/item/${item._id}/order').success(data => {
                     console.log(data);
                     $scope.itemsInCart.push(item);
         
