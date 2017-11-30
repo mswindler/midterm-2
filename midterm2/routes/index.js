@@ -1,64 +1,60 @@
-var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
+const express = require('express');
+const router = express.Router();
+const mongoose = require('mongoose');
+const Item = mongoose.model('Item');
 
-var Vote = mongoose.model('Vote');
-
-
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.param('item', (request, response, next, id) => {
+    const query = Item.findById(id);
+    query.exec((error, item) => {
+        if (error) {
+            return next(error);
+        }
+        if (!item) {
+            return next(new Error("can't find item"));
+        }
+        request.item = item;
+        return next();
+    });
 });
 
-router.get('/admin.html', function(req, res, next) {
-  res.render('admin', { title: 'Express' });
+// Get items
+router.get('/items', (request, response, next) => {
+    Item.find((error, items) => {
+        if (error) {
+            return next(error);
+        } else {
+            return response.json(items);
+        }
+    });
 });
 
-router.get('/customer.html', function(req, res, next) {
-  res.render('customer', { title: 'Express' });
+// Add item
+router.post('/item', (request, response, next) => {
+    const item = new Item(request.body);
+    item.save((error, item) => {
+        if (error) {
+            return next(error);
+        } else {
+            response.json(item);
+        }
+    });
 });
 
-router.get('/voting', function(req, res, next) {
-  Vote.find(function(err, votes) {
-    if(err){ return next(err); }
-    res.json(votes);
-  });
-});
-
-router.post('/voting', function(req, res, next) {
-  var vote = new Vote(req.body);
-  vote.save(function(err, vote){
-    if(err){ return next(err); }
-    res.json(vote);
-  });
-});
-
-router.param('vote', function(req, res, next, id) {
-  var query = Vote.findById(id);
-  query.exec(function (err, vote) {
-    if(err) {return next(err); }
-    if(!vote) {return next(new Error("I can't find that candidate")); }
-    req.vote = vote;
-    return next();
-  });
-});
-
-router.get('/voting/:vote', function(req, res) {
-  res.json(req.vote);
-});
-
-router.put('/voting/:vote/upvote', function(req, res, next) {
-  req.vote.upvote(function(err, vote) {
-    if(err) { return next(err) }
-    res.json(vote);
-  });
-});
-
-router.delete('/voting/:vote', function(req, res) {
-  console.log("in Delete");
-  req.vote.remove();
-  res.json(req.vote);
+// Delete item
+router.delete('/item/:item', (req, res) => {
+    req.item.remove();
+    res.sendStatus(200);
 });
 
 
+    router.put('/item/:item/order', (request, response, next) => {
+        request.item.incrementNumberOrdered((error, item) => {
+            if (error) {
+                return next(error);
+            } else {
+                response.json(item);
+            }
+        });
+    });
 
 module.exports = router;
