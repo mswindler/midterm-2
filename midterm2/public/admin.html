@@ -8,8 +8,9 @@
 </head>
 <body ng-app="voting" ng-controller="MainCtrl">
   <div class="header">
-    <h2> Administrative Interface </h2>
+    <h2> Store Management Interface </h2>
   </div>
+  <a href="customer.html">View customers</a>
 
   <div class="addr">
     <form ng-submit="addCandidate()">
@@ -20,7 +21,7 @@
   </div>
 
   <div class="canHeader">
-    <h2> Current Items </h2>
+    <h2> Current Products </h2>
   </div>
 
   <div class="cans" ng-repeat="candidate in candidates | orderBy: '-name'">
