@@ -5,11 +5,11 @@ var ItemSchema = new mongoose.Schema({
     name: String,
     price: Number,
     imageUrl: String,
-    numberOrdered: Number
+    numberOrdered: Number,
 });
 
 ItemSchema.methods.incrementNumberOrdered = function (cb) {
-    this.numberOrdered += 1;
+    this.numberOrdered++;
     this.save(cb);
 };
 
