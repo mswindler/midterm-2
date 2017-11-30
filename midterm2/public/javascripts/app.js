@@ -7,7 +7,9 @@ angular.module('items', [])
     $scope.candidates = [];
 
     $scope.getAll = function() {
+	    console.log("in getAll");
       return $http.get('/voting').success(function(data) {
+	      console.log("success");
         angular.copy(data, $scope.candidates);
       });
     };
