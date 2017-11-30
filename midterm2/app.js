@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/votesDB', {useMongoClient:true});
+mongoose.connect('mongodb://localhost/votes', {useMongoClient:true});
 require('./models/Votes');
 
 var routes = require('./routes/index');
