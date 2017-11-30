@@ -25,7 +25,7 @@
 
   <div class="cans" ng-repeat="candidate in candidates | orderBy: '-name'">
     <span ng-click="delete(candidate)"><strong><i class="glyphicon glyphicon-remove"></i></strong></span>
-    {{candidate.name}} - votes {{candidate.quantity}} - price: ${{candidate.price}}
+    {{candidate.name}} - price: ${{candidate.price}} - ordered {{candidate.quantity}}
   </div>
 </body>
 </html>
