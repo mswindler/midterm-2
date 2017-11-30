@@ -12,14 +12,14 @@ router.get('/admin.html', function(req, res, next) {
   res.render('admin', { title: 'Express' });
 });
 
-router.get('/voter.html', function(req, res, next) {
-  res.render('voter', { title: 'Express' });
+router.get('/customer.html', function(req, res, next) {
+  res.render('customer', { title: 'Express' });
 });
 
 router.get('/voting', function(req, res, next) {
-  Item.find(function(err, votes) {
+  Item.find(function(err, items) {
     if(err){ return next(err); }
-    res.json(votes);
+    res.json(items);
   });
 });
 
