@@ -70,7 +70,7 @@ form.form {
       margin: auto;
       color: transparent;
       text-align: center;
-      text-shadow: -10px -10px 0 #f00, 0px 0px 0 #000, 0px 0px 0 #000, 10px 10px 0 #00ff1f;
+      text-shadow: -4px -4px 0 #f00, 0px 0px 0 #000, 0px 0px 0 #000, 4px 4px 0 #00ff1f;
         text-transform: uppercase;
     }
     body {
