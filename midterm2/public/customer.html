@@ -8,17 +8,15 @@
 </head>
 <body ng-app="voting" ng-controller="MainCtrl">
 
-  <h1> Voter Interface </h1>
+  <h1> Shopping Interface </h1>
 
-  <h1> Current Candidates </h1>
+  <h2> Current Products </h2>
   <div ng-repeat="candidate in candidates | orderBy: '-name'">
-    <input type="checkbox" ng-model="candidate.selected"> {{candidate.name}}
+    <input type="checkbox" ng-model="candidate.selected"> {{candidate.name}} - price {{candidate.price}}</input>
   </div>
-  <button ng-click="dovote()">
-    Submit Votes
-  </button>
+  <button ng-click="dovote()">Submit Purchase</button>
 
-  <h1> Submitted Ballot </h1>
+  <h2> Shopping Cart </h2>
   <div ng-repeat="candidate in ballots | orderBy: '-name'">
     {{candidate.name}}
   </div>
