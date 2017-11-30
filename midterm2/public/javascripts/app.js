@@ -1,65 +1,69 @@
-angular.module('items', [])
-.controller('MainCtrl', [
-  '$scope', '$http',
-  function($scope, $http) {
-    
-    $scope.ballots = [];
-    $scope.candidates = [];
+angular.module('shop', []).controller('MainCtrl', [
+    '$scope',
+    '$http',
+    function($scope, $http) {
+        $scope.items = [];
+        $scope.selectedItems = [];
+        $scope.itemsInCart = [];
+        
 
-    $scope.getAll = function() {
-	    console.log("in getAll");
-      return $http.get('/voting').success(function(data) {
-	      console.log("success");
-        angular.copy(data, $scope.candidates);
-      });
-    };
-
-    $scope.getAll();
-
-    $scope.create = function(candidate) {
-       return $http.post('/voting', candidate).success(function(data){
-	 $scope.candidates.push(data);
-       });
-    };
-
-    $scope.dovote = function() {
-      console.log("in dovote");
-      angular.forEach($scope.candidates, function(value, key) {
-        if(value.selected) {
-          $scope.upvote(value);
-          console.log(value);
-	  $scope.ballots.push(value);
+        $scope.getItems = function() {
+            return $http.get('/items').success(data => {
+                angular.copy(data, $scope.items);
+            });
         };
-      });
+
+        $scope.getItems();
+
+        $scope.create = function(item) {};
+
+        $scope.addItem = function() {
+            var newItem = { name: $scope.newItemName, price: $scope.newItemPrice, imageUrl: $scope.newItemImageUrl, numberOrdered: 0 };
+            return $http.post('/item', newItem).success(data => {
+                $scope.items.push(data);
+                $scope.newItemName = '';
+                $scope.newItemPrice = 0;
+                $scope.newItemImageUrl = '';
+            });
+        };
+
+        $scope.deleteItem = function(item) {
+            console.log('Deleting Name ' + item.name + ' ID ' + item._id);
+            $http.delete(`/item/${item._id}`).success(data => {
+                console.log('deleted ', item);
+                $scope.getItems();
+            });
+        };
+
+        $scope.addItemToSelectedItems = function(itemChecked) {
+            console.log('in add item to Seelcter', itemChecked);
+            if(!$scope.selectedItems.includes(itemChecked)){
+                console.log('item added');
+                $scope.selectedItems.push(itemChecked);
+            } else {
+                console.log('item removed');                
+                $scope.selectedItems = $scope.selectedItems.filter(item => {
+                    return itemChecked.name !== item.name;
+                });
+            }   
+        }
+
+        $scope.submitPurchase = function() {
+            $scope.selectedItems.forEach(item => {
+                return $http.put(`/item/${item._id}/order`).success(data => {
+                    console.log(data);
+                    $scope.itemsInCart.push(item);
+        
+                });
+            });
+        }
+
+        // $scope.voteFor = function(candidate) {
+        //     return $http.put(`/candidate/${candidate._id}/vote`).success(data => {
+        //         console.log('vote added for,', candidate);
+        //         candidate.votes += 1;
+        //     });
+        // };
+
     }
-
-    $scope.upvote = function(candidate) {
-      return $http.put('/voting/'+candidate._id+'/upvote')
-      .success(function(data) {
-        console.log("upvote worked");
-        candidate.quantity += 1;
-      });
-    }
-
-    $scope.addCandidate = function() {
-      var newCan = {name:$scope.formContent, quantity:0, price:$scope.formPrice};
-      console.log(newCan);
-      $scope.create(newCan);
-      $scope.formContent = '';
-    };
-
-    $scope.incrementUpvotes = function(candidate) {
-      $scope.upvote(candidate);
-    };
-
-    $scope.delete = function(candidate) {
-      console.log("in delete");
-      $http.delete('/voting/'+candidate._id)
-      .success(function(data) {
-        console.log("delete worked");
-      });
-      $scope.getAll();
-    };    
-
-  }
 ]);
