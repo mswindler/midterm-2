@@ -17,9 +17,9 @@ router.get('/customer.html', function(req, res, next) {
 });
 
 router.get('/voting', function(req, res, next) {
-  Item.find(function(err, items) {
+  Item.find(function(err, item) {
     if(err){ return next(err); }
-    res.json(items);
+    res.json(item);
   });
 });
 
