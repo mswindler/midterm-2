@@ -35,12 +35,12 @@ angular.module('voting', [])
       return $http.put('/voting/'+candidate._id+'/upvote')
       .success(function(data) {
         console.log("upvote worked");
-        candidate.votes += 1;
+        candidate.quantity += 1;
       });
     }
 
     $scope.addCandidate = function() {
-      var newCan = {name:$scope.formContent, votes: 0};
+      var newCan = {name:$scope.formContent, quantity:0, price:$scope.formPrice};
       console.log(newCan);
       $scope.create(newCan);
       $scope.formContent = '';
