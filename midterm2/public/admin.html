@@ -6,17 +6,18 @@
   <script src="javascripts/app.js"></script>
   <link href="stylesheets/style.css" rel="stylesheet">  
 </head>
-<body ng-app="items" ng-controller="MainCtrl">
+<body ng-app="shop" ng-controller="MainCtrl">
   <div class="header">
     <h1> Store Management Interface </h1>
   </div>
   <a href="customer.html">View customers</a>
 
   <div class="addr">
-    <form ng-submit="addCandidate()">
-      <input type="text" ng-model="formContent" placeholder="item"></input>
-      <input type="number" ng-model="formPrice" placeholder="price"></input>
-      <button type="submit">Add Item</button>
+    <form ng-submit="addItem()" class="admin-form">
+        <input class="admin-form-name" placeholder="Product Name" type="text" ng-model="newItemName"></input>
+        <input class="admin-form-price" placeholder="Price" type="number" ng-model="newItemPrice"></input>
+        <input class="admin-form-url" placeholder="Image URL" type="text" ng-model="newItemImageUrl"></input>                
+        <button class="admin-form-button" type="submit">Add Product</button>
     </form>
   </div>
 
@@ -24,9 +25,9 @@
     <h2> Current Products </h2>
   </div>
 
-  <div class="cans" ng-repeat="candidate in candidates | orderBy: '-name'">
-    <span ng-click="delete(candidate)"><strong><i class="glyphicon glyphicon-remove"></i></strong></span>
-    {{candidate.name}} - price: ${{candidate.price}} - ordered {{candidate.quantity}}
+  <div class="cans" ng-repeat="item in items | orderBy: '-name'">
+    <span ng-click="deleteItem(item)"><strong><i class="glyphicon glyphicon-remove"></i></strong></span>
+     {{item.name}} - Price: ${{item.price}} - Ordered {{item.numberOrdered}}
   </div>
 </body>
 </html>
