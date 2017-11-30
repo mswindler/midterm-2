@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Item = mongoose.model('Item');
+
+var Vote = mongoose.model('Vote');
 
 
 router.get('/', function(req, res, next) {
@@ -17,9 +18,9 @@ router.get('/customer.html', function(req, res, next) {
 });
 
 router.get('/voting', function(req, res, next) {
-  Item.find(function(err, item) {
+  Vote.find(function(err, votes) {
     if(err){ return next(err); }
-    res.json(item);
+    res.json(votes);
   });
 });
 
@@ -35,7 +36,7 @@ router.param('vote', function(req, res, next, id) {
   var query = Vote.findById(id);
   query.exec(function (err, vote) {
     if(err) {return next(err); }
-    if(!vote) {return next(new Error("I can't find that item")); }
+    if(!vote) {return next(new Error("I can't find that candidate")); }
     req.vote = vote;
     return next();
   });
