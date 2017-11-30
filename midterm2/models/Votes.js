@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var VoteSchema = new mongoose.Schema({
   name: String,
   votes: {type: Number, default: 0},
+  price: Number,
 });
 
 VoteSchema.methods.upvote = function(cb) {
