@@ -13,8 +13,7 @@
             </div>
             <div ng-repeat="item in items | orderBy: '-name'">
                 <input type="checkbox" ng-click="addItemToSelectedItems(item)">
-                <img class="item-image" ng-src="{{item.imageUrl}}"> 
-                {{item.name}} - ${{item.price}}
+                {{item.name}} - ${{item.price}} <img ng-src="{{item.imageUrl}}"> 
             </div>
             <br>
             <button ng-click="submitPurchase()">Submit Purchase</button>
@@ -24,7 +23,6 @@
                 <h2>Shopping Cart</h2>
             </div>
             <div ng-repeat="item in itemsInCart | orderBy: '-name'">
-                
                 {{item.name}} - ${{item.price}} <img ng-src="{{item.imageUrl}}"> 
             </div>
 </body>
