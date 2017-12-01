@@ -2,6 +2,16 @@
       border-style: solid;
         border-color: black;
     }
+
+.cans.ng-binding.ng-scope {
+    padding: 25px;
+    background: lightgray;
+    border-radius: 25px;
+    display: block;
+    margin: 15px;
+    text-align: center;
+}
+
 button {
     border: #000;
     border-width: 4px;
