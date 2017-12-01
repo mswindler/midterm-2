@@ -12,7 +12,6 @@ button {
     text-transform: uppercase;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 150px;
     text-shadow: 0px 0px 0 #f00, 0px 0px 0 #000, 0px 0px 0 #000, 3px 3px 0 #00ff1f;
 }
 div#bg-top {
